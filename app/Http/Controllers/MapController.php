@@ -12,10 +12,13 @@ class MapController extends Controller
      */
     public function index(Request $request)
     {
-        $q = $request->input('q', ''); 
+        $q = $request->input('q', '');
         $limit = 10;
-        $maps = Openstreetmap::search($q, $limit);
-        // dd($maps);p
+        $maps = [];
+
+        if ($q !== null && is_string($q)) {
+            $maps = Openstreetmap::search($q, $limit);
+        }
         return view('maps', compact('maps'));
     }
 

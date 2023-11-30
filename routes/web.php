@@ -18,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/map', [MapController::class, 'index']);
+Route::get('/map', [MapController::class, 'index'])->name('maps');
 Route::get('/detail', [MapController::class, 'detail']);
 Route::get('/search', [MapController::class, 'index'])->name('search');
 
