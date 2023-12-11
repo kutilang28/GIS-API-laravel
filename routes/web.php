@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapController;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +22,6 @@ Route::get('/', function () {
 Route::get('/map', [MapController::class, 'index']);
 Route::get('/detail', [MapController::class, 'detail']);
 Route::get('/search', [MapController::class, 'index'])->name('search');
+Route::post('/insert', [LocationController::class, 'store'])->name('insert');
+Route::get('/get-locations', [LocationController::class, 'index']);
 

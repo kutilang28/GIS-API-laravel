@@ -2,34 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Kolirt\Openstreetmap\Facade\Openstreetmap;
 use App\Models\Location;
-class MapController extends Controller
+
+class LocationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        $q = $request->input('q', ''); 
-        $limit = 10;
-        $maps = Openstreetmap::search($q, $limit);
-        $databaseLocations = Location::all();
-        // dd($maps);p
-        return view('maps', compact('maps', 'databaseLocations'));
+        //
+        $locations = Location::all();
+
+        return response()->json($locations);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-
-    public function detail()
-    {
-        $det = "57592194";
-        $detail = Openstreetmap::details($det);
-        dd($detail);
-    }
     public function create()
     {
         //
@@ -41,6 +33,15 @@ class MapController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->validate([
+            'name' => 'required',
+            'lat' => 'required',
+            'long' => 'required',
+        ]);
+        // dd($data);
+        $location = Location::create($data);
+
+        return back();
     }
 
     /**
